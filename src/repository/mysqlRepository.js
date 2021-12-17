@@ -1,33 +1,48 @@
+// Gerencia as Querys do Banco de Dados
 import connect from '../infra/database.js';
 
-const connection = await connect()
+const connection = await connect() // realiza a conexão implementada externamente
 
-export async function createFuncionario(funcionario) {
-    return await connection.query(
-        'INSERT INTO Funcionario(funcionarioNome, funcionarioIdade, funcionarioCargo) VALUES (?,?,?)',
-        [funcionario.nome, funcionario.idade, funcionario.cargo]
-    )
+export async function createFuncionario(funcionario) { // Create
+    try {
+        return await connection.query(
+            'INSERT INTO Funcionario(funcionarioNome, funcionarioIdade, funcionarioCargo) VALUES (?,?,?)',
+            [funcionario.nome, funcionario.idade, funcionario.cargo]
+        )
+    } catch (error) {
+        return error;
+    }
 }
 
-export async function getFuncionarioByName(nome){
-    const [rows] = await connection.query(
-        'SELECT * FROM Funcionario WHERE funcionarioNome = ?',
-        [nome]
-    )
+export async function getFuncionarioByName(nome){ // Verifica duplicidade
+    try {
 
-    return rows[0]
+        const [rows] = await connection.query(
+            'SELECT * FROM Funcionario WHERE funcionarioNome = ?',
+            [nome]
+        )
+        return rows[0]
+
+    } catch (error) {
+        return error;
+    }
 }
 
-export async function getFuncionario(id){
-    const [rows] = await connection.query(
-        'SELECT * FROM Funcionario WHERE funcionarioId = ?',
-        [id]
-    )
+export async function getFuncionario(id){ //Read 
+    try {
 
-    return rows[0]
+        const [rows] = await connection.query(
+            'SELECT * FROM Funcionario WHERE funcionarioId = ?',
+            [id]
+        )
+        return rows[0]
+
+    } catch (error) {
+        return error
+    }
 }
 
-export async function updateFuncionario(funcionario){
+export async function updateFuncionario(funcionario){ //Update
     try{
         return await connection.query(
             'UPDATE Funcionario SET funcionarioNome = ?, funcionarioIdade = ?, funcionarioCargo = ? WHERE funcionarioId = ?',
@@ -38,7 +53,7 @@ export async function updateFuncionario(funcionario){
     }
 }
 
-export async function deleteFuncionario(funcionario){
+export async function deleteFuncionario(funcionario){ // Delete
     try{
         return await connection.query(
             'DELETE FROM Funcionario WHERE funcionarioId = ?',

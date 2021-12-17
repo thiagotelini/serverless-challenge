@@ -2,15 +2,14 @@ import mysql from 'mysql2/promise';
 
 // Conexão com Banco
 export default async function connect() {
-    if (global.connection && global.connection.state !== 'disconnected') {
+    if (global.connection && global.connection.state !== 'disconnected') { // Caso a conexão já tenha sido feita, se mantém
         return global.connection;
     }
 
-    //const mysql = require("mysql2/promise");
-    const connection = await mysql.createPool({
+    const connection = await mysql.createPool({ // Realiza a conexão com o banco
         user: 'admin',
-        password: 'serverless',
-        host: 'serverless-api.cmrdaru6tlgt.sa-east-1.rds.amazonaws.com',
+        password: '', // credenciais removidas para o repositório
+        host: '', // credenciais removidas para o repositório
         port: '3306',
         database: 'serverlessChallenge',
         waitForConnections: true,
