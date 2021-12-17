@@ -8,9 +8,9 @@ export default async function connect() {
 
     //const mysql = require("mysql2/promise");
     const connection = await mysql.createPool({
-        user: 'root',
-        password: 'root',
-        host: 'localhost',
+        user: 'admin',
+        password: 'serverless',
+        host: 'serverless-api.cmrdaru6tlgt.sa-east-1.rds.amazonaws.com',
         port: '3306',
         database: 'serverlessChallenge',
         waitForConnections: true,
@@ -19,6 +19,5 @@ export default async function connect() {
     }); //mysql://USUARIO:SENHA@DOMINIO:PORTA/BANCO
 
     global.connection = connection;
-    console.log('conectado com sucesso');
     return connection;
 }

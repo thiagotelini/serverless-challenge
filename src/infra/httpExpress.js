@@ -11,7 +11,9 @@ app.get('/', function(req, res) {
 })
 
 app.post('/funcionario', expressAdapter(funcionarioController.createFuncionario));
-
+app.get('/funcionario/:id', expressAdapter(funcionarioController.getFuncionario));
+app.put('/funcionario/:id', expressAdapter(funcionarioController.updateFuncionario));
+app.delete('/funcionario/:id', expressAdapter(funcionarioController.deleteFuncionario));
 
 
 app.listen(3333);

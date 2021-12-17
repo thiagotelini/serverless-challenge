@@ -161,7 +161,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/serverlesschallenge/dev/1639664954560-2021-12-16T14:29:14.560Z/serverlesschallenge.zip"
+          "S3Key": "serverless/serverlesschallenge/dev/1639708817287-2021-12-17T02:40:17.287Z/serverlesschallenge.zip"
         },
         "Handler": "src/infra/httpExpress.handler",
         "Runtime": "nodejs12.x",
@@ -179,14 +179,14 @@
         "AppLogGroup"
       ]
     },
-    "AppLambdaVersionWisR8JEJzVsAVwMaQ8YmNVUV0RswRd3heW5U7d6h6A": {
+    "AppLambdaVersionfa7c7dXOvk8UYBaQnVAA0x6H3faAb8UbN277i3wacg": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "AppLambdaFunction"
         },
-        "CodeSha256": "YkjamXmbBjd+p2FBD5M/++ntC5NF4UGSfChQjkSXVLo="
+        "CodeSha256": "bLwjuAFELGpypJXSWeFWtvfji32tY9wxbj5XLRmcB9g="
       }
     },
     "ApiGatewayRestApi": {
@@ -199,21 +199,6 @@
           ]
         },
         "Policy": ""
-      }
-    },
-    "ApiGatewayResourceProxyVar": {
-      "Type": "AWS::ApiGateway::Resource",
-      "Properties": {
-        "ParentId": {
-          "Fn::GetAtt": [
-            "ApiGatewayRestApi",
-            "RootResourceId"
-          ]
-        },
-        "PathPart": "{proxy+}",
-        "RestApiId": {
-          "Ref": "ApiGatewayRestApi"
-        }
       }
     },
     "ApiGatewayMethodAny": {
@@ -265,53 +250,7 @@
         "AppLambdaPermissionApiGateway"
       ]
     },
-    "ApiGatewayMethodProxyVarAny": {
-      "Type": "AWS::ApiGateway::Method",
-      "Properties": {
-        "HttpMethod": "ANY",
-        "RequestParameters": {},
-        "ResourceId": {
-          "Ref": "ApiGatewayResourceProxyVar"
-        },
-        "RestApiId": {
-          "Ref": "ApiGatewayRestApi"
-        },
-        "ApiKeyRequired": false,
-        "AuthorizationType": "NONE",
-        "Integration": {
-          "IntegrationHttpMethod": "POST",
-          "Type": "AWS_PROXY",
-          "Uri": {
-            "Fn::Join": [
-              "",
-              [
-                "arn:",
-                {
-                  "Ref": "AWS::Partition"
-                },
-                ":apigateway:",
-                {
-                  "Ref": "AWS::Region"
-                },
-                ":lambda:path/2015-03-31/functions/",
-                {
-                  "Fn::GetAtt": [
-                    "AppLambdaFunction",
-                    "Arn"
-                  ]
-                },
-                "/invocations"
-              ]
-            ]
-          }
-        },
-        "MethodResponses": []
-      },
-      "DependsOn": [
-        "AppLambdaPermissionApiGateway"
-      ]
-    },
-    "ApiGatewayDeployment1639664944766": {
+    "ApiGatewayDeployment1639708763783": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -320,8 +259,7 @@
         "StageName": "dev"
       },
       "DependsOn": [
-        "ApiGatewayMethodAny",
-        "ApiGatewayMethodProxyVarAny"
+        "ApiGatewayMethodAny"
       ]
     },
     "AppLambdaPermissionApiGateway": {
@@ -374,7 +312,7 @@
     "AppLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "AppLambdaVersionWisR8JEJzVsAVwMaQ8YmNVUV0RswRd3heW5U7d6h6A"
+        "Ref": "AppLambdaVersionfa7c7dXOvk8UYBaQnVAA0x6H3faAb8UbN277i3wacg"
       },
       "Export": {
         "Name": "sls-serverlesschallenge-dev-AppLambdaFunctionQualifiedArn"

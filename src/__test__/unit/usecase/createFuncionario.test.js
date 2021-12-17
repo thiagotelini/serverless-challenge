@@ -1,6 +1,6 @@
 import Funcionario from '../../../domain/funcionario.js';
-import CreateFuncionario from "../../../usecase/createFuncionario";
-import * as funcionarioRepository from "../../../repository/arrayRepository";
+import CreateFuncionario from "../../../usecase/createFuncionario.js";
+import * as funcionarioRepository from "../../../repository/mysqlRepository";
 import { expect } from '@jest/globals';
 
 test('Deve criar um novo Funcionario', async function () {
@@ -12,6 +12,6 @@ test('Deve criar um novo Funcionario', async function () {
 
 test('Deve retornar um erro ao tentar criar um Funcionario duplicado', async function () {
     const createFuncionarioUseCase = new CreateFuncionario(funcionarioRepository);
-    await createFuncionarioUseCase.execute(['Thiago Telini', 21, 'Desenvolvedor']);
-    expect(await createFuncionarioUseCase.execute(['Thiago Telini', 21, 'Desenvolvedor'])).toThrow(Error);
+    await createFuncionarioUseCase.execute(['Teste', 21, 'Desenvolvedor']);
+    expect(await createFuncionarioUseCase.execute(['Teste', 21, 'Desenvolvedor'])).toThrow(Error);
 });
